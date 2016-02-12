@@ -107,7 +107,12 @@ public class GrowthDataUtilsImpl {
 					for (int k = 0; k < columnIndices.size(); k++) {
 						dataPoints[k] = m.getData().getValues().get(row).get(columnIndices.get(k));
 					}
-					outputDataValues.get(row).add(sdev(dataPoints));
+					if (dataPoints.length == 1) {
+						outputDataValues.get(row).add(0.0);
+					} else {
+						outputDataValues.get(row).add(sdev(dataPoints));
+					}
+					
 				}
 				
 				columnCount++;
@@ -127,7 +132,11 @@ public class GrowthDataUtilsImpl {
 					for (int k = 0; k < columnIndices.size(); k++) {
 						dataPoints[k] = m.getData().getValues().get(row).get(columnIndices.get(k));
 					}
-					outputDataValues.get(row).add(stderr(dataPoints));
+					if (dataPoints.length == 1) {
+						outputDataValues.get(row).add(0.0);
+					} else {
+						outputDataValues.get(row).add(stderr(dataPoints));
+					}
 				}
 				
 				columnCount++;
@@ -175,30 +184,12 @@ public class GrowthDataUtilsImpl {
 		return returnVal;
 	}
 
-	/**
-	   * Calculates the square of a double.
-	   * 
-	   * @return Returns x*x
-	   */
-
-	  public static double sqr(double x) {
-	    return x * x;
-	  }
-
-	  /**
-	   * Returns the average of an array of double.
-	   */
-
 	  public static double mean(double[] v) {
-	    double tot = 0.0;
+	    double sum = 0.0;
 	    for (int i = 0; i < v.length; i++)
-	      tot += v[i];
-	    return tot / v.length;
+	      sum += v[i];
+	    return sum / v.length;
 	  }
-
-	  /**
-	   * Returns the sample standard deviation of an array of double.
-	   */
 
 	  public static double sdev(double[] v) {
 	    return Math.sqrt(variance(v));
@@ -214,32 +205,12 @@ public class GrowthDataUtilsImpl {
 	    return sdev(v) / Math.sqrt(v.length);
 	  }
 
-	  /**
-	   * Returns the variance of the array of double.
-	   */
-
 	  public static double variance(double[] v) {
 	    double mu = mean(v);
 	    double sumsq = 0.0;
 	    for (int i = 0; i < v.length; i++)
-	      sumsq += sqr(mu - v[i]);
-	    return sumsq / (v.length);
-	    // return 1.12; this was done to test a discrepancy with Business
-	    // Statistics
+	      sumsq += (mu - v[i])*(mu - v[i]);
+	    return sumsq / (v.length - 1);
 	  }
 
-	  /**
-	   * this alternative version was used to check correctness
-	   */
-
-	  private static double variance2(double[] v) {
-	    double mu = mean(v);
-	    double sumsq = 0.0;
-	    for (int i = 0; i < v.length; i++)
-	      sumsq += sqr(v[i]);
-	    System.out.println(sumsq + " : " + mu);
-	    double diff = (sumsq - v.length * sqr(mu));
-	    System.out.println("Diff = " + diff);
-	    return diff / (v.length);
-	  }
 }
