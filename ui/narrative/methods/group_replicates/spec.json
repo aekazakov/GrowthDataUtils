@@ -1,0 +1,105 @@
+{
+    "ver": "0.0.1",
+    "authors": [
+        "aktest"
+    ],
+    "contact": "help@kbase.us",
+    "visible": true,
+    "categories": ["active"],
+    "widgets": {
+        "input": null,
+        "output": null
+    },
+    "parameters": [ 
+        {
+            "id": "input_growthmatrix_id",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": [ "KBaseEnigmaMetals.GrowthMatrix" ]
+            }
+        },
+        {
+            "id": "result_id",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": [  ]
+            }
+        },
+		{
+			"id": "std_dev",
+		    "optional":false,
+		    "advanced":false,
+		    "allow_multiple":false,
+		    "default_values":[""],
+		    "field_type" : "checkbox",
+		    "checkbox_options":{
+		      "checked_value": 1,
+		      "unchecked_value": 0
+		    }
+		},
+		{
+			"id": "std_err",
+		    "optional":false,
+		    "advanced":false,
+		    "allow_multiple":false,
+		    "default_values":[""],
+		    "field_type" : "checkbox",
+		    "checkbox_options":{
+		      "checked_value": 1,
+		      "unchecked_value": 0
+		    }
+		}
+    ],
+    "behavior": {
+        "service-mapping": {
+            "url": "",
+            "name": "GrowthDataUtils",
+            "method": "group_replicates",
+            "input_mapping": [
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace"
+                },
+                {
+                    "input_parameter": "input_growthmatrix_id",
+                    "target_property": "input_growthmatrix_id"
+                },
+                {
+                    "input_parameter": "result_id",
+                    "target_property": "result_id"
+                },
+                {
+                    "input_parameter": "std_dev",
+                    "target_property": "std_dev"
+                },
+                {
+                    "input_parameter": "std_err",
+                    "target_property": "std_err"
+                }
+            ],
+            "output_mapping": [
+                {
+                    "service_method_output_path": [0],
+                    "target_property": "growthmatrix_id"
+                },
+                {
+                    "input_parameter": "input_growthmatrix_id",
+                    "target_property": "input_growthmatrix_id"
+                },
+                {
+                    "narrative_system_variable": "workspace",
+                    "target_property": "workspace_name"
+                }
+            ]
+        }
+    },
+    "job_id_output_field": "docker"
+}

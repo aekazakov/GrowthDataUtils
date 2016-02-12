@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -14,25 +13,24 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import growthdatautils.FilterContigsParams;
-import growthdatautils.FilterContigsResults;
+import growthdatautils.GroupReplicatesParams;
 import growthdatautils.GrowthDataUtilsServer;
 import us.kbase.auth.AuthToken;
 import us.kbase.common.service.JsonServerSyslog;
 import us.kbase.common.service.RpcContext;
 import us.kbase.common.service.UObject;
-import us.kbase.workspace.CreateWorkspaceParams;
-import us.kbase.workspace.ObjectSaveData;
+//import us.kbase.workspace.CreateWorkspaceParams;
+//import us.kbase.workspace.ObjectSaveData;
 import us.kbase.workspace.ProvenanceAction;
-import us.kbase.workspace.SaveObjectsParams;
+//import us.kbase.workspace.SaveObjectsParams;
 import us.kbase.workspace.WorkspaceClient;
-import us.kbase.workspace.WorkspaceIdentity;
+//import us.kbase.workspace.WorkspaceIdentity;
 
 public class GrowthDataUtilsServerTest {
     private static AuthToken token = null;
     private static Map<String, String> config = null;
     private static WorkspaceClient wsClient = null;
-    private static String wsName = null;
+//    private static String wsName = null;
     private static GrowthDataUtilsServer impl = null;
     
     @BeforeClass
@@ -50,7 +48,7 @@ public class GrowthDataUtilsServerTest {
         impl = new GrowthDataUtilsServer();
     }
     
-    private static String getWsName() throws Exception {
+/*    private static String getWsName() throws Exception {
         if (wsName == null) {
             long suffix = System.currentTimeMillis();
             wsName = "test_GrowthDataUtils_" + suffix;
@@ -58,7 +56,7 @@ public class GrowthDataUtilsServerTest {
         }
         return wsName;
     }
-    
+*/    
     private static RpcContext getContext() {
         return new RpcContext().withProvenance(Arrays.asList(new ProvenanceAction()
             .withService("GrowthDataUtils").withMethod("please_never_use_it_in_production")
@@ -67,7 +65,7 @@ public class GrowthDataUtilsServerTest {
     
     @AfterClass
     public static void cleanup() {
-        if (wsName != null) {
+/*        if (wsName != null) {
             try {
                 wsClient.deleteWorkspace(new WorkspaceIdentity().withWorkspace(wsName));
                 System.out.println("Test workspace was deleted");
@@ -75,9 +73,9 @@ public class GrowthDataUtilsServerTest {
                 ex.printStackTrace();
             }
         }
-    }
+*/    }
     
-    @Test
+/*    @Test
     public void testFilterContigsOk() throws Exception {
         String objName = "contigset.1";
         Map<String, Object> contig1 = new LinkedHashMap<String, Object>();
@@ -132,5 +130,13 @@ public class GrowthDataUtilsServerTest {
         } catch (Exception ex) {
             Assert.assertEquals("Error loading original ContigSet object from workspace", ex.getMessage());
         }
+    }
+*/
+    @Test
+    public void testGroupReplicatesOk() throws Exception {
+        String objName = "growth-rawseries-20150211-1";
+        String ret = impl.groupReplicates(new GroupReplicatesParams().withInputGrowthmatrixId(objName).withResultId("test-group-replicates").withStdDev(1L).withStdErr(1L).withWorkspace("aktest:1454614449601"), token, getContext());
+        //Assert.assertEquals(1L, (long)ret.getContigCount());
+        Assert.assertEquals("test-group-replicates", ret);
     }
 }

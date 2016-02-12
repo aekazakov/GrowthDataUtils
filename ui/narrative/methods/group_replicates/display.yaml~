@@ -1,9 +1,9 @@
 #
 # define display information
 #
-name: Filter Contigs
+name: Group Replicates
 tooltip: |
-    Filters the contigs by removing contigs below a length threshold
+    Groups series of replicates in GrowthMatrix, calculates average values and other statistical measures and returns name of new GrowthMatrix object
 screenshots: []
 
 icon: icon.png
@@ -21,17 +21,22 @@ suggestions:
         related:
             []
         next:
-            [annotate_contigset]
+            []
 
 #
 # Configure the display and description of parameters
 #
 parameters :
-    contigset_id :
+    input_growthmatrix_id :
         ui-name : |
-            Contig Set Name
+            Growth Matrix Name
         short-hint : |
-            The contig set to filter (will be overwritten)
+            The growth matrix that contains replicates
+    growthmatrix_id :
+        ui-name : |
+            Growth Matrix Name
+        short-hint : |
+            The growth matrix that contains replicates
     min_length :
         ui-name : |
             Min Length Threshold

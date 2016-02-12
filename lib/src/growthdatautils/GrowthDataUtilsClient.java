@@ -16,7 +16,7 @@ import us.kbase.common.service.UnauthorizedException;
  * <p>Original spec-file module name: GrowthDataUtils</p>
  * <pre>
  * A KBase module: GrowthDataUtils
- * This sample module contains one small method - filter_contigs.
+ * Growth Data Utilites.
  * </pre>
  */
 public class GrowthDataUtilsClient {
@@ -140,20 +140,20 @@ public class GrowthDataUtilsClient {
     }
 
     /**
-     * <p>Original spec-file function name: filter_contigs</p>
+     * <p>Original spec-file function name: group_replicates</p>
      * <pre>
-     * Filter contigs in a ContigSet by DNA length
+     * Group replicates by samples, calculate average and stderr
      * </pre>
-     * @param   params   instance of type {@link growthdatautils.FilterContigsParams FilterContigsParams}
-     * @return   instance of type {@link growthdatautils.FilterContigsResults FilterContigsResults}
+     * @param   params   instance of type {@link growthdatautils.GroupReplicatesParams GroupReplicatesParams}
+     * @return   instance of original type "growthmatrix_id" (A string representing a GrowthMatrix id.)
      * @throws IOException if an IO exception occurs
      * @throws JsonClientException if a JSON RPC exception occurs
      */
-    public FilterContigsResults filterContigs(FilterContigsParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+    public String groupReplicates(GroupReplicatesParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
         List<Object> args = new ArrayList<Object>();
         args.add(params);
-        TypeReference<List<FilterContigsResults>> retType = new TypeReference<List<FilterContigsResults>>() {};
-        List<FilterContigsResults> res = caller.jsonrpcCall("GrowthDataUtils.filter_contigs", args, retType, true, true, jsonRpcContext);
+        TypeReference<List<String>> retType = new TypeReference<List<String>>() {};
+        List<String> res = caller.jsonrpcCall("GrowthDataUtils.group_replicates", args, retType, true, true, jsonRpcContext);
         return res.get(0);
     }
 }

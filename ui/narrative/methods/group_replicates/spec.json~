@@ -12,46 +12,77 @@
     },
     "parameters": [ 
         {
-            "id": "contigset_id",
+            "id": "input_growthmatrix_id",
             "optional": false,
             "advanced": false,
             "allow_multiple": false,
             "default_values": [ "" ],
             "field_type": "text",
             "text_options": {
-                "valid_ws_types": [ "KBaseGenomes.ContigSet" ]
+                "valid_ws_types": [ "KBaseEnigmaMetals.GrowthMatrix" ]
             }
         },
         {
-            "id": "min_length",
+            "id": "result_id",
             "optional": false,
             "advanced": false,
             "allow_multiple": false,
             "default_values": [ "" ],
             "field_type": "text",
             "text_options": {
-                "validate_as": "int",
-                "min_integer" : 0
+                "valid_ws_types": [  ]
             }
-        }
+        },
+		{
+			"id": "std_dev",
+		    "optional":false,
+		    "advanced":false,
+		    "allow_multiple":false,
+		    "default_values":[""],
+		    "field_type" : "checkbox",
+		    "checkbox_options":{
+		      "checked_value": 1,
+		      "unchecked_value": 0
+		    }
+		},
+		{
+			"id": "std_err",
+		    "optional":false,
+		    "advanced":false,
+		    "allow_multiple":false,
+		    "default_values":[""],
+		    "field_type" : "checkbox",
+		    "checkbox_options":{
+		      "checked_value": 1,
+		      "unchecked_value": 0
+		    }
+		}
     ],
     "behavior": {
         "service-mapping": {
             "url": "",
             "name": "GrowthDataUtils",
-            "method": "filter_contigs",
+            "method": "group_replicates",
             "input_mapping": [
                 {
                     "narrative_system_variable": "workspace",
                     "target_property": "workspace"
                 },
                 {
-                    "input_parameter": "contigset_id",
-                    "target_property": "contigset_id"
+                    "input_parameter": "input_growthmatrix_id",
+                    "target_property": "input_growthmatrix_id"
                 },
                 {
-                    "input_parameter": "min_length",
-                    "target_property": "min_length"
+                    "input_parameter": "result_id",
+                    "target_property": "result_id"
+                },
+                {
+                    "input_parameter": "std_dev",
+                    "target_property": "std_dev"
+                },
+                {
+                    "input_parameter": "std_err",
+                    "target_property": "std_err"
                 }
             ],
             "output_mapping": [

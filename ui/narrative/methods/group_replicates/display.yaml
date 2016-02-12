@@ -1,0 +1,51 @@
+#
+# define display information
+#
+name: Group Replicates
+tooltip: |
+    Groups series of replicates in GrowthMatrix, calculates average values and other statistical measures and returns name of new GrowthMatrix object
+screenshots: []
+
+icon: icon.png
+
+#
+# define a set of similar methods that might be useful to the user
+#
+suggestions:
+    apps:
+        related:
+            []
+        next:
+            []
+    methods:
+        related:
+            []
+        next:
+            []
+
+#
+# Configure the display and description of parameters
+#
+parameters :
+    input_growthmatrix_id :
+        ui-name : |
+            Growth Matrix Name
+        short-hint : |
+            The growth matrix that contains replicates
+    result_id :
+        ui-name : |
+            Output GrowthMatrix name
+        short-hint : |
+            Name of output GrowthMatrix object
+    std_dev :
+        ui-name : |
+            Calculate standard deviation?
+        short-hint : |
+            Check this box if you want to calculate standard deviation values for your replicates
+    std_err :
+        ui-name : |
+            Calculate standard error?
+        short-hint : |
+            Check this box if you want to calculate standard error values for your replicates
+description : |
+    <p>If you have GrowthMatrix with series of replicates, this method will convert it into GrowthMatrix of averages with (optionally) standard deviations and standard errors.</p>
